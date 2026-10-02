@@ -18,7 +18,7 @@ Install venv support.
 cd ~/Redemption
 python3 -m venv flask_env
 ```
-`cd` into your desired path first — this creates a `flask_env` folder inside it.
+`cd` into your desired path first. This creates a `flask_env` folder inside it.
 
 **Step 4. Activate the environment**
 ```
@@ -32,6 +32,8 @@ This means it's active.
 
 **Step 5. Install Flask**
 ```
-pip install flask
+pip install -r requirements.txt
 ```
+(run it inside `Pi_part`, or just `pip install flask`, it's the only dependency)
+
 ⚠️ No `sudo`.

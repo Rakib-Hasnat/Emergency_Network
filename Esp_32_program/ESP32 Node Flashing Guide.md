@@ -1,7 +1,7 @@
 # ESP32 Node Flashing Guide
 
 This project uses **one shared `main.c`** for all three nodes. There is no
-per-node source file — you flash the same code three times, changing one
+per-node source file. You flash the same code three times, changing one
 line each time.
 
 ## Before every flash
@@ -19,7 +19,7 @@ Open `main/main.c` and change this line near the top:
 | 3       | EmergencyNet_3   | 192.168.12.1    | No               |
 
 Everything else (Pi SSID/password, reconnect logic, HTTP proxy) is identical
-across nodes — only `NODE_ID` changes.
+across nodes. Only `NODE_ID` changes.
 
 ## Build & flash
 
@@ -32,18 +32,17 @@ idf.py -p /dev/ttyUSB0 flash monitor
 Replace `/dev/ttyUSB0` with the actual port (`COM3`, etc. on Windows).
 Repeat for all three boards, changing `NODE_ID` and reflashing each time.
 
-## Required CMakeLists components
+## CMakeLists components
 
-`main/CMakeLists.txt` must list these as `REQUIRES` (or `PRIV_REQUIRES`) for
-the code to compile:
+`main/CMakeLists.txt` only lists `main.c`, and that is enough. In ESP-IDF the
+component called `main` automatically depends on every other component in
+the build, so it doesn't need a `REQUIRES` line.
+
+If you ever move this code into a component with a different name, add:
 
 ```
-esp_wifi esp_event nvs_flash esp_netif esp_http_server esp_http_client esp_adc
+REQUIRES esp_wifi esp_event nvs_flash esp_netif esp_http_server esp_http_client esp_adc
 ```
-
-I have not seen the actual contents of your `CMakeLists.txt` files, so I
-can't confirm they already include this — check manually before building on
-a fresh clone.
 
 ## Battery wiring (Node 1 only)
 
@@ -52,8 +51,8 @@ a fresh clone.
 - Divider halves the voltage, so the code multiplies the ADC reading by 2
   to recover actual battery voltage
 - Nodes 2 and 3 have no divider circuit and must be flashed with
-  `NODE_ID` set to 2 or 3 so `BATTERY_ENABLE` is 0 — flashing Node 1's
-  config onto a board with no divider will just read a floating/incorrect
+  `NODE_ID` set to 2 or 3 so `BATTERY_ENABLE` is 0. If you flash Node 1's
+  config onto a board with no divider, it just reads a floating (wrong)
   voltage on GPIO34
 
 ## Known gotcha

@@ -467,13 +467,17 @@ header {
 .resize-text { font-family:var(--display); font-weight:700; font-size:0.85rem; color:var(--text2); letter-spacing:0.06em; }
 
 @media(max-width:540px){
-  header{padding:0 16px;}
-  .header-stats{gap:5px;}
+  header{padding:10px 16px;height:auto;flex-wrap:wrap;row-gap:8px;}
+  .header-stats{gap:5px;order:3;width:100%;}
   .stat-chip{padding:4px 8px;font-size:0.65rem;}
+  .node-panel{padding:16px 14px;}
+  .node-card{padding:10px 6px;}
+  .node-id{font-size:0.8rem;}
+  .node-ssid{font-size:0.6rem;}
   .feed{padding:20px 12px 120px;}
   .fab{bottom:20px;right:20px;}
   .compose-panel{right:12px;bottom:90px;}
-  .node-grid{grid-template-columns:repeat(3,1fr);}
+  .node-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
 }
 </style>
 </head>

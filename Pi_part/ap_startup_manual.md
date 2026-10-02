@@ -17,14 +17,14 @@ Expected output:
 ```
 sudo rfkill unblock all
 ```
-Check again with `rfkill list` — expect the same "no / no" output.
+Check again with `rfkill list`, you should see the same "no / no" output.
 
 **3. Stop conflicting services**
 ```
 sudo systemctl stop wpa_supplicant
 sudo systemctl stop dhcpcd
 ```
-Ignore "unit not loaded" messages — harmless.
+Ignore "unit not loaded" messages, they are harmless.
 
 **4. Reset the interface**
 ```
